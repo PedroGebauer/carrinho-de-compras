@@ -1,0 +1,10 @@
+{
+  "name": "carrinho-de-compras",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo \"Nenhum processo de build é necessário para este projeto estático.\"",
+    "start": "python -m http.server 8000",
+    "start:win": "py -m http.server 8000"
+  }
+}

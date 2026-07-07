@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adega Premium - Distribuidora de Bebidas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-beer-mug-empty logo-icon"></i>
+            <span class="nav-text logo-title">Adega Premium</span>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="#" onclick="showSection('home')" class="menu-item active"><i class="fa-solid fa-house"></i> <span class="nav-text">Início</span></a>
+            <a href="#" onclick="toggleCart()" class="menu-item"><i class="fa-solid fa-cart-shopping"></i> <span class="nav-text">Carrinho (<span id="cart-count-side">0</span>)</span></a>
+<a href="#" onclick="showSection('login')" class="menu-item"><i class="fa-solid fa-user"></i> <span class="nav-text" id="menu-user-text">Minha Conta</span></a>        </nav>
+
+        <div class="sidebar-about">
+            <h3><i class="fa-solid fa-circle-info"></i> <span class="nav-text">Sobre Nós</span></h3>
+            <p class="nav-text">A Adega Premium é a sua distribuidora de confiança em Colombo. Oferecemos uma seleção exclusiva de bebidas nacionais e importadas, sempre trincando e prontas para a sua celebração!</p>
+            <div class="sidebar-address nav-text">
+                <p><strong><i class="fa-solid fa-location-dot"></i> Onde estamos:</strong></p>
+                <p>R. Antônio Chemin, 117<br>Roça Grande, Colombo - PR<br>CEP: 83403-515</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+       <header class="main-header">
+            <h1>Bebidas em Geral</h1>
+            <div class="header-actions">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="Mudar Tema">
+                    <i class="fa-solid fa-moon" id="theme-icon"></i>
+                </button>
+                
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho (<span id="cart-count-top">0</span>)
+                </button>
+            </div>
+        </header>
+
+        <section id="section-produtos" class="content-section">
+            <h2 class="section-title">Nosso Catálogo</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="product-badge">Destaque</div>
+                    <img src="img/cerveja.jfif" alt="Cerveja Heineken">
+                    <h3>Cerveja Heineken Long Neck 330ml</h3>
+                    <p class="product-price">R$ 7,99</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Heineken Long Neck', 7.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="img/coca-cola.jpg" alt="Refrigerante Coca-Cola 2L">
+                    <h3>Refrigerante Coca-Cola 2L</h3>
+                    <p class="product-price">R$ 9,49</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Coca-Cola Original 2L', 9.49)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="img/vinho.jpg" alt="Vinho Casillero del Diablo Cabernet 750ml">
+                    <h3>Vinho Casillero del Diablo Cabernet 750ml</h3>
+                    <p class="product-price">R$ 59,90</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Vinho Casillero del Diablo', 59.90)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="img/whisky.jfif" alt="Whisky Johnnie Walker Red Label 1L">
+                    <h3>Whisky Johnnie Walker Red Label 1L</h3>
+                    <p class="product-price">R$ 109,90</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Whisky Red Label 1L', 109.90)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="img/vodka.jpg" alt="Vodka Absolut Regular 1L">
+                    <h3>Vodka Absolut Regular 1L</h3>
+                    <p class="product-price">R$ 94,90</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Vodka Absolut 1L', 94.90)">Adicionar ao Carrinho</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="img/suco.jfif" alt="Suco de Uva Integral Aurora 1,5L">
+                    <h3>Suco de Uva Integral Aurora 1,5L</h3>
+                    <p class="product-price">R$ 18,50</p>
+                    <button class="add-to-cart-btn" onclick="addToCart('Suco de Uva Aurora 1.5L', 18.50)">Adicionar ao Carrinho</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="section-login" class="content-section hidden">
+            <div class="login-wrapper">
+                
+                <div class="login-card" id="login-form-card">
+                    <h2>Acessar Minha Conta</h2>
+                    <p>Faça o login para acompanhar seus pedidos e finalizar compras mais rápido.</p>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">E-mail</label>
+                            <input type="email" id="login-email" required placeholder="exemplo@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Senha</label>
+                            <input type="password" id="login-password" required placeholder="Digite sua senha">
+                        </div>
+                        <button type="submit" class="login-submit-btn">Entrar</button>
+                    </form>
+                    <p class="login-footer-text">Não tem conta? <a href="#" onclick="toggleAuthForms()">Cadastre-se aqui</a></p>
+                </div>
+
+                <div class="login-card hidden" id="register-form-card">
+                    <h2>Criar Nova Conta</h2>
+                    <p>Cadastre-se para aproveitar ofertas exclusivas.</p>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="reg-name">Nome</label>
+                            <input type="text" id="reg-name" required placeholder="Seu nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">E-mail</label>
+                            <input type="email" id="reg-email" required placeholder="exemplo@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Senha</label>
+                            <input type="password" id="reg-password" required placeholder="Crie uma senha">
+                        </div>
+                        <button type="submit" class="login-submit-btn">Cadastrar</button>
+                    </form>
+                    <p class="login-footer-text">Já tem conta? <a href="#" onclick="toggleAuthForms()">Faça login aqui</a></p>
+                </div>
+
+                <div class="login-card hidden" id="profile-card">
+                    <h2>Minha Conta</h2>
+                    <p>Bem-vindo(a), <strong id="profile-name"></strong>!</p>
+                    <p>Logado com: <span id="profile-email"></span></p>
+                    <br>
+                    <button class="login-submit-btn" style="background-color: #e74c3c; border-color: #e74c3c;" onclick="handleLogout()">Sair da Conta</button>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Adega Premium Distribuidora</h3>
+                    <p>Bebidas geladas e produtos de qualidade com entrega rápida na região.</p>
+                </div>
+                <div class="footer-address">
+                    <h4><i class="fa-solid fa-location-dot"></i> Nosso Endereço Físico:</h4>
+                    <p>R. Antônio Chemin, 117 - Roça Grande, Colombo - PR, 83403-515</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Adega Premium. Todos os direitos reservados. Se beber, não dirija. Venda proibida para menores de 18 anos.</p>
+            </div>
+        </footer>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Seu Carrinho</h2>
+                <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cart-items-container" class="cart-items-list">
+                <p class="empty-cart-msg">Seu carrinho está vazio.</p>
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total-row">
+                    <span>Total:</span>
+                    <span id="cart-total-value">R$ 0,00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
