@@ -5,9 +5,9 @@
       "name": "Debug no navegador",
       "type": "pwa-chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/index.html",
-      "sourceMaps": true,
-      "webRoot": "${workspaceFolder}"
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "serve"
     }
   ]
 }

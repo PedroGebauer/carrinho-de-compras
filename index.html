@@ -16,9 +16,12 @@
         </div>
         
         <nav class="sidebar-menu">
-            <a href="#" onclick="showSection('home')" class="menu-item active"><i class="fa-solid fa-house"></i> <span class="nav-text">Início</span></a>
+            <a href="#" onclick="showSection('produtos')" data-section="produtos" class="menu-item active"><i class="fa-solid fa-house"></i> <span class="nav-text">Início</span></a>
             <a href="#" onclick="toggleCart()" class="menu-item"><i class="fa-solid fa-cart-shopping"></i> <span class="nav-text">Carrinho (<span id="cart-count-side">0</span>)</span></a>
-            <a href="#" onclick="showSection('login')" class="menu-item"><i class="fa-solid fa-user"></i> <span class="nav-text" id="menu-user-text">Minha Conta</span></a>        </nav>
+            <a href="#" onclick="showSection('login')" data-section="login" class="menu-item"><i class="fa-solid fa-user"></i> <span class="nav-text" id="menu-user-text">Minha Conta</span></a>
+            <a href="#" onclick="showSection('pedidos')" data-section="pedidos" class="menu-item hidden" id="menu-pedidos"><i class="fa-solid fa-receipt"></i> <span class="nav-text">Meus Pedidos</span></a>
+            <a href="#" onclick="showSection('admin')" data-section="admin" class="menu-item hidden" id="menu-admin"><i class="fa-solid fa-user-shield"></i> <span class="nav-text">Painel Admin</span></a>
+        </nav>
         
         <div class="sidebar-about">
             <h3><i class="fa-solid fa-circle-info"></i> <span class="nav-text">Sobre Nós</span></h3>
@@ -47,51 +50,9 @@
 
         <section id="section-produtos" class="content-section">
             <h2 class="section-title">Nosso Catálogo</h2>
-            <div class="products-grid">
-                
-                <div class="product-card">
-                    <div class="product-badge">Destaque</div>
-                    <img src="img/cerveja.jfif" alt="Cerveja Heineken">
-                    <h3>Cerveja Heineken Long Neck 330ml</h3>
-                    <p class="product-price">R$ 7,99</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Heineken Long Neck', 7.99)">Adicionar ao Carrinho</button>
-                </div>
 
-                <div class="product-card">
-                    <img src="img/coca-cola.jpg" alt="Refrigerante Coca-Cola 2L">
-                    <h3>Refrigerante Coca-Cola 2L</h3>
-                    <p class="product-price">R$ 9,49</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Coca-Cola Original 2L', 9.49)">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="img/vinho.jpg" alt="Vinho Casillero del Diablo Cabernet 750ml">
-                    <h3>Vinho Casillero del Diablo Cabernet 750ml</h3>
-                    <p class="product-price">R$ 59,90</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Vinho Casillero del Diablo', 59.90)">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="img/whisky.jfif" alt="Whisky Johnnie Walker Red Label 1L">
-                    <h3>Whisky Johnnie Walker Red Label 1L</h3>
-                    <p class="product-price">R$ 109,90</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Whisky Red Label 1L', 109.90)">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="img/vodka.jpg" alt="Vodka Absolut Regular 1L">
-                    <h3>Vodka Absolut Regular 1L</h3>
-                    <p class="product-price">R$ 94,90</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Vodka Absolut 1L', 94.90)">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="img/suco.jfif" alt="Suco de Uva Integral Aurora 1,5L">
-                    <h3>Suco de Uva Integral Aurora 1,5L</h3>
-                    <p class="product-price">R$ 18,50</p>
-                    <button class="add-to-cart-btn" onclick="addToCart('Suco de Uva Aurora 1.5L', 18.50)">Adicionar ao Carrinho</button>
-                </div>
-
+            <div class="products-grid" id="products-grid">
+                <p id="products-loading-msg">Carregando produtos...</p>
             </div>
         </section>
 
@@ -129,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label for="reg-password">Senha</label>
-                            <input type="password" id="reg-password" required placeholder="Crie uma senha">
+                            <input type="password" id="reg-password" required placeholder="Crie uma senha (mín. 6 caracteres)">
                         </div>
                         <button type="submit" class="login-submit-btn">Cadastrar</button>
                     </form>
@@ -144,6 +105,49 @@
                     <button class="login-submit-btn" style="background-color: #e74c3c; border-color: #e74c3c;" onclick="handleLogout()">Sair da Conta</button>
                 </div>
 
+            </div>
+        </section>
+
+        <section id="section-pedidos" class="content-section hidden">
+            <h2 class="section-title">Meus Pedidos</h2>
+            <div id="orders-container" class="orders-list">
+                <p id="orders-empty-msg">Você ainda não fez nenhum pedido.</p>
+            </div>
+        </section>
+
+        <section id="section-admin" class="content-section hidden">
+            <h2 class="section-title">Painel Admin — Produtos</h2>
+
+            <div class="admin-form-card">
+                <h3>Adicionar novo produto</h3>
+                <form id="admin-add-form">
+                    <div class="form-group">
+                        <label for="admin-name">Nome</label>
+                        <input type="text" id="admin-name" required placeholder="Ex: Cerveja Stella Artois 350ml">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-price">Preço (R$)</label>
+                        <input type="number" id="admin-price" step="0.01" min="0" required placeholder="Ex: 12.90">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-image-file">Imagem do produto</label>
+                        <input type="file" id="admin-image-file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-image">Ou cole uma URL de imagem (opcional se enviar um arquivo acima)</label>
+                        <input type="text" id="admin-image" placeholder="img/produto.jpg ou uma URL completa">
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-badge">Selo (opcional)</label>
+                        <input type="text" id="admin-badge" placeholder="Ex: Destaque">
+                    </div>
+                    <button type="submit" class="login-submit-btn">Adicionar Produto</button>
+                </form>
+            </div>
+
+            <h3 class="admin-list-title">Produtos cadastrados</h3>
+            <div id="admin-products-list" class="admin-products-list">
+                <p>Carregando...</p>
             </div>
         </section>
 
@@ -183,6 +187,24 @@
         </div>
     </div>
 
+    <div id="reset-password-overlay" class="reset-password-overlay hidden">
+        <div class="login-card">
+            <h2>Definir Nova Senha</h2>
+            <p>Você clicou em um link de redefinição de senha. Escolha uma nova senha para sua conta abaixo.</p>
+            <form id="reset-password-form">
+                <div class="form-group">
+                    <label for="reset-password-input">Nova senha</label>
+                    <input type="password" id="reset-password-input" required minlength="6" placeholder="Digite a nova senha">
+                </div>
+                <button type="submit" class="login-submit-btn">Salvar nova senha</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- SDK do Supabase (cliente JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>
