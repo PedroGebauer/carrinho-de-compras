@@ -2,10 +2,9 @@
   "name": "carrinho-de-compras",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "build": "node build.js",
-    "start": "python -m http.server 8000",
-    "start:win": "py -m http.server 8000",
-    "serve": "npm run start"
-  }
+"scripts": {
+  "start": "python -m http.server 8000",
+  "start:win": "py -m http.server 8000",
+  "serve": "npm run start"
+}
 }
