@@ -6,9 +6,6 @@ const STORAGE_BUCKET = "IMG-adega";
 // Criamos nosso cliente com outro nome para não confundir os dois.
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ============================================================
-// ESTADO EM MEMÓRIA
-// ============================================================
 let products = [];
 let cart = [];
 let currentUser = null;
